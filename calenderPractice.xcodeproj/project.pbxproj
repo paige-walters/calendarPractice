@@ -142,13 +142,13 @@
 			isa = PBXGroup;
 			children = (
 				C625940D1FC3AC34008DFE79 /* AppDelegate.swift */,
+				C6142FBC1FC3B5FC00F6E4E9 /* CustomCell.swift */,
 				C625940F1FC3AC34008DFE79 /* ViewController.swift */,
 				C62594111FC3AC35008DFE79 /* Main.storyboard */,
 				C62594171FC3AC35008DFE79 /* Assets.xcassets */,
 				C62594191FC3AC35008DFE79 /* LaunchScreen.storyboard */,
 				C625941C1FC3AC35008DFE79 /* Info.plist */,
 				C62594141FC3AC35008DFE79 /* calenderPractice.xcdatamodeld */,
-				C6142FBC1FC3B5FC00F6E4E9 /* CustomCell.swift */,
 			);
 			path = calenderPractice;
 			sourceTree = "<group>";
