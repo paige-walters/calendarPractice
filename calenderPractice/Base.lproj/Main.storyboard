@@ -128,11 +128,6 @@
                                                     <constraint firstItem="u4g-Gl-gYP" firstAttribute="centerY" secondItem="WNp-QW-zma" secondAttribute="centerY" id="oDa-Wf-gXs"/>
                                                     <constraint firstItem="moS-gG-7pm" firstAttribute="centerX" secondItem="WNp-QW-zma" secondAttribute="centerX" id="s96-oE-ebF"/>
                                                 </constraints>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                                        <integer key="value" value="2"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <outlet property="dateLabel" destination="u4g-Gl-gYP" id="SgW-k5-vSh"/>
                                                     <outlet property="selectedView" destination="moS-gG-7pm" id="TMH-6F-Fh6"/>

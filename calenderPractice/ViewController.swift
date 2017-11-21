@@ -13,6 +13,12 @@ class ViewController: UIViewController {
    
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     
+    let outsideMonthColor = UIColor(colorWithHexValue: 0x584A66)
+    let monthColor = UIColor.white
+    let selectedMonthColor = UIColor(colorWithHexValue: 0x3A294B)
+    let currentDateSelectedViewColor = UIColor(colorWithHexValue: 0x4E3F5D)
+    
+    
     let formatter = DateFormatter()
 
     override func viewDidLoad() {
@@ -24,6 +30,30 @@ class ViewController: UIViewController {
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
     }
+    
+    func handleCellTextColor(view:JTAppleCell?, cellState: CellState){
+        guard let validCell = view as? CustomCell else { return }
+        
+        if cellState.isSelected {
+            validCell.dateLabel.textColor = selectedMonthColor
+        } else {
+            if cellState.dateBelongsTo == .thisMonth {
+                validCell.dateLabel.textColor = monthColor
+            } else {
+                validCell.dateLabel.textColor = outsideMonthColor
+            }
+        }
+    }
+    
+    func handleCellSelected(view: JTAppleCell?, cellState: CellState) {
+        guard let validCell = view as? CustomCell else { return }
+        if validCell.isSelected {
+            validCell.selectedView.isHidden = false
+        } else {
+            validCell.selectedView.isHidden = true
+        }
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -64,10 +94,28 @@ extension ViewController: JTAppleCalendarViewDelegate {
     
     func sharedFunctionToConfigureCell(myCustomCell: CustomCell, cellState: CellState, date: Date) {
         myCustomCell.dateLabel.text = cellState.text
+        handleCellSelected(view: myCustomCell, cellState: cellState)
+        handleCellTextColor(view: myCustomCell, cellState: cellState)
     }
     
+    func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+        handleCellSelected(view: cell, cellState: cellState)
+        handleCellTextColor(view: myCustomCell, cellState: cellState)
+    }
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
-        guard let validCell = cell as? CustomCell else { return }
-        validCell.selectedView.isHidden = false
+        handleCellSelected(view: cell, cellState: cellState)
+        handleCellTextColor(view: myCustomCell, cellState: cellState)
+    }
+  
+}
+
+extension UIColor {
+    convenience init(colorWithHexValue value: Int, alpha: CGFloat = 1.0){
+        self.init(
+            red: CGFloat((value & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((value & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(value & 0x0000FF) / 255.0,
+            alpha: alpha
+            )
     }
 }
