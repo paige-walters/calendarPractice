@@ -10,11 +10,19 @@ import UIKit
 import JTAppleCalendar
 
 class ViewController: UIViewController {
-    let formatter = DateFormatter()
+   
+    @IBOutlet weak var calendarView: JTAppleCalendarView!
     
+    let formatter = DateFormatter()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        setUpCalendar()
+    }
+    
+    func setUpCalendar() {
+        calendarView.minimumLineSpacing = 0
+        calendarView.minimumInteritemSpacing = 0
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,7 +33,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
+extension ViewController: JTAppleCalendarViewDataSource {
     public func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         formatter.dateFormat = "yyyy MM dd"
         formatter.timeZone = Calendar.current.timeZone
@@ -37,8 +45,11 @@ extension ViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
         return parameters
     }
+    
+}
 
-  
+extension ViewController: JTAppleCalendarViewDelegate {
+    
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         // This function should have the same code as the cellForItemAt function
         let myCustomCell = cell as! CustomCell
@@ -55,4 +66,8 @@ extension ViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         myCustomCell.dateLabel.text = cellState.text
     }
     
+    func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+        guard let validCell = cell as? CustomCell else { return }
+        validCell.selectedView.isHidden = false
+    }
 }
