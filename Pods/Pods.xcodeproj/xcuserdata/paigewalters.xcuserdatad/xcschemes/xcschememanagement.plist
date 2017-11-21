@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>JTAppleCalendar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-calenderPractice.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-calenderPracticeTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-calenderPracticeUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>4D5B8B1BE64F80268007C79821DDDC20</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6AB9F68841DB08F169ECB0B1F91EC7E3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7B3101708E7611F2C12DC0289C0676DB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9233E4B8A4E244C345E51B8041FA4759</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
