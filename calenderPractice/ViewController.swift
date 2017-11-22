@@ -12,6 +12,8 @@ import JTAppleCalendar
 class ViewController: UIViewController {
    
     @IBOutlet weak var calendarView: JTAppleCalendarView!
+    @IBOutlet weak var monthLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
     
     let outsideMonthColor = UIColor(colorWithHexValue: 0x584A66)
     let monthColor = UIColor.white
@@ -29,6 +31,11 @@ class ViewController: UIViewController {
     func setUpCalendar() {
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
+        
+        calendarView.visibleDates { (visibleDates) in
+            self.setUpViewsOfCalendar(from: visibleDates)
+            
+        }
     }
     
     func handleCellTextColor(view:JTAppleCell?, cellState: CellState){
@@ -52,6 +59,18 @@ class ViewController: UIViewController {
         } else {
             validCell.selectedView.isHidden = true
         }
+    }
+    
+    func setUpViewsOfCalendar(from visibleDates: DateSegmentInfo) {
+        let date = visibleDates.monthDates.first!.date
+        
+        self.formatter.dateFormat = "yyyy"
+        self.yearLabel.text = self.formatter.string(from: date)
+        
+        
+        self.formatter.dateFormat = "MMMM"
+        self.monthLabel.text = self.formatter.string(from: date)
+
     }
     
 
@@ -100,11 +119,14 @@ extension ViewController: JTAppleCalendarViewDelegate {
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         handleCellSelected(view: cell, cellState: cellState)
-        handleCellTextColor(view: myCustomCell, cellState: cellState)
+        handleCellTextColor(view: cell, cellState: cellState)
     }
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         handleCellSelected(view: cell, cellState: cellState)
-        handleCellTextColor(view: myCustomCell, cellState: cellState)
+        handleCellTextColor(view: cell, cellState: cellState)
+    }
+    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+        setUpViewsOfCalendar(from: visibleDates)
     }
   
 }
