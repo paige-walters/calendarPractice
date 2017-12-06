@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
-    @IBOutlet weak var dayLabel: UILabel!
+
     
     let outsideMonthColor = UIColor(colorWithHexValue: 0x584A66)
     let monthColor = UIColor.white
@@ -26,6 +26,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        calendarView.scrollToDate(Date())
+        calendarView.selectDates([Date()])
+        
+        
         setUpCalendar()
     }
     
@@ -40,6 +45,8 @@ class ViewController: UIViewController {
     }
     
     func handleCellTextColor(view:JTAppleCell?, cellState: CellState){
+ 
+            
         guard let validCell = view as? CustomCell else { return }
         
         if cellState.isSelected {
@@ -51,10 +58,25 @@ class ViewController: UIViewController {
                 validCell.dateLabel.textColor = outsideMonthColor
             }
         }
+        
     }
     
     func handleCellSelected(view: JTAppleCell?, cellState: CellState) {
+        let todaysDate = Date()
+        
+        formatter.dateFormat = "yyyy MM dd"
+        
+        let todaysDateString = formatter.string(from: todaysDate)
+        let monthDateString = formatter.string(from: cellState.date)
+        
         guard let validCell = view as? CustomCell else { return }
+        
+        if todaysDateString <= monthDateString {
+           validCell.isUserInteractionEnabled = true
+        } else {
+            validCell.isUserInteractionEnabled = false
+        }
+        
         if validCell.isSelected {
             
             let firstShiftSelection = UIAlertAction(title: "1st Shift", style: .default, handler: { (action) in
@@ -82,7 +104,7 @@ class ViewController: UIViewController {
             alert.addAction(cancel)
             
             present(alert, animated: true, completion: nil)
-            
+        
             validCell.selectedView.isHidden = false
         } else {
             validCell.selectedView.isHidden = true
@@ -116,8 +138,8 @@ extension ViewController: JTAppleCalendarViewDataSource {
         formatter.timeZone = Calendar.current.timeZone
         formatter.locale = Calendar.current.locale
         
-        let startDate = formatter.date(from: "2017 01 01")!
-        let endDate = formatter.date(from: "2017 12 31")!
+        let startDate = formatter.date(from: "2017 10 01")!
+        let endDate = formatter.date(from: "2018 12 31")!
         
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
         return parameters
@@ -130,6 +152,7 @@ extension ViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         // This function should have the same code as the cellForItemAt function
         let myCustomCell = cell as! CustomCell
+        
         sharedFunctionToConfigureCell(myCustomCell: myCustomCell, cellState: cellState, date: date)
     }
     
