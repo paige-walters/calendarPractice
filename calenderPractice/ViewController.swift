@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var yearLabel: UILabel!
+    @IBOutlet weak var dayLabel: UILabel!
     
     let outsideMonthColor = UIColor(colorWithHexValue: 0x584A66)
     let monthColor = UIColor.white
@@ -55,6 +56,33 @@ class ViewController: UIViewController {
     func handleCellSelected(view: JTAppleCell?, cellState: CellState) {
         guard let validCell = view as? CustomCell else { return }
         if validCell.isSelected {
+            
+            let firstShiftSelection = UIAlertAction(title: "1st Shift", style: .default, handler: { (action) in
+                print("You selected 1st shift!")
+                
+                //present a new view with a list of available employees for date selected
+                //mark shift as filled with blank number of employees
+                //Change Color of date when employees are scheduled for that date vs need to schedule
+            
+            })
+            let secondShiftSelection = UIAlertAction(title: "2nd Shift", style: .default, handler: { (alert) in
+                print("You selected 2nd shift!")
+                //present a new view with a list of available employees for date selected
+                //mark shift as filled with blank number of employees
+                //Change Color of date when employees are scheduled for that date vs need to schedule
+
+            })
+            let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                print("You canceled this action")
+            })
+            
+            let alert = UIAlertController(title: monthLabel.text! + " " + validCell.dateLabel.text!, message: "Are both shifts filled?", preferredStyle: .alert)
+            alert.addAction(firstShiftSelection)
+            alert.addAction(secondShiftSelection)
+            alert.addAction(cancel)
+            
+            present(alert, animated: true, completion: nil)
+            
             validCell.selectedView.isHidden = false
         } else {
             validCell.selectedView.isHidden = true
@@ -70,7 +98,7 @@ class ViewController: UIViewController {
         
         self.formatter.dateFormat = "MMMM"
         self.monthLabel.text = self.formatter.string(from: date)
-
+        
     }
     
 
